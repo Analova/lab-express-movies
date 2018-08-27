@@ -2,12 +2,10 @@
 
 
 
-<form action="/celebrities/edit?id={{celebrities._id}}" method="post">
-  Name: <input type="text" name="name" value="{{celebrity.name}}"><br>
-  occupation: <input type="text" name="occupation" value="{{celebrity.occupation}}"><br>
-  catchPhrase: <input type="text" name="catchPhrase" value="{{celebrity.catchPhrase}}"><br>
+<form action="/celebrities/{{celebrities._id}}" method="post">
+  Name: <input type="text" name="name" value="{{celebrities.name}}"><br>
+  occupation: <input type="text" name="occupation" value="{{celebrities.occupation}}"><br>
+  catchPhrase: <input type="text" name="catchPhrase" value="{{celebrities.catchPhrase}}"><br>
   <button>Eddit Celebrity</button>
 </form>
 
-
-celebrity={{celebrity.occupation}}

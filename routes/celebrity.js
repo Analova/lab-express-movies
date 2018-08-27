@@ -2,7 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const Celebrity = require("../models/Celebrity");
 
-/* clelebrities route */
+/* all celebrities */
 router.get('/celebrities', (req, res, next) => {
     Celebrity.find()
     .then(celebrlties=>{
@@ -10,7 +10,7 @@ router.get('/celebrities', (req, res, next) => {
     })
 });
 
-/* show a celebrtity*/
+/* show one celebrtity*/
 router.get('/celebrities/:id', (req, res, next) => {
     Celebrity.findById(req.params.id)
     .then(celebrity => {
@@ -48,10 +48,11 @@ router.post("/celebrities/:id/delete", (req, res)=>{
   })
 })
 
+//update a celebrity
 router.get('/celebrities/:id/edit', (req, res, next) => {
-  Celebrity.findOne({_id: req.query.id})
+  Celebrity.findById(req.params.id)
   .then(celebrities=> {
-    res.render("edit", {celebrities})
+    res.render("edit", {celebrities:celebrities})
    
   })
   .catch((error) => {
@@ -61,9 +62,13 @@ router.get('/celebrities/:id/edit', (req, res, next) => {
 
 router.post('/celebrities/:id', (req, res, next) => {
   const { name, occupation, catchPhrase} = req.body;
-  Celebrity.update({_id: req.query.id}, { $set: {name, occupation, catchPhrase }})
+  Celebrity.findByIdAndUpdate(req.params.id, {
+    "name":name,
+    "occupation":occupation,
+    "catchPhrase":catchPhrase
+  } )
   .then((celebrity) => {
-    res.redirect('/celebrities')
+    res.redirect('/celebrities/' + req.params.id)
   })
   .catch((error) => {
     console.log(error)
