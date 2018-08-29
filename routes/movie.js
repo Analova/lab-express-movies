@@ -75,6 +75,11 @@ router.post("/movies/:id", (req,res,next)=>{
       })
 })
 
+//search route!
+router.post("/moviesearch", (req,res,next)=>{
+    res.render("movies/search")
+});
+
 
 
 module.exports = router;

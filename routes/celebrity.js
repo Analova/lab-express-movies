@@ -75,6 +75,50 @@ router.post('/celebrities/:id', (req, res, next) => {
   })
 });
 
+// search not recommended 
+/*router.get('/search', (req, res, next) => {
+res.render("search")
+});
+
+router.post('/search', (req, res, next) => {
+  const {search}= req.body
+  Celebrity.find({name: new RegExp(search, "i")})
+  .then(celebrities=>{
+res.render("search", {
+  celebrities:celebrities
+
+})
+  
+  })
+  
+  }); */
+  // SEARCH better way!
+  router.get('/search', (req, res, next) => {
+    const {search}= req.query;
+    if(!search)
+    res.render("search")
+    else{
+      Celebrity.find({name: new RegExp(search, "i")
+    })
+  .then(celebrities=>{
+res.render("search", {
+  "celebrities":celebrities.map(c=>({
+    name:c.name,
+    occupation:c.occupation,
+    score: 100
+  })),
+  "isNoResult": celebrities.length === 0
+})
+  })
+  .catch(error=>{
+    console.log(error)
+  })
+    }
+    });
+
+
+
+
 
 
 module.exports = router;

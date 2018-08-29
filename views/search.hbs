@@ -1,0 +1,18 @@
+<form action="/search" method="get">
+  Search <input type="text" name="search"><br>
+  <button>Submit!</button>
+</form>
+
+<ul>
+{{#each celebrities}}
+<li>{{this.name}} </li>
+<li>{{this.occupation}}</li>
+<li>{{this.score}} </li>
+{{/each}}
+</ul>
+
+
+
+{{#if isNoResult}}
+No celebrities
+{{/if}}
